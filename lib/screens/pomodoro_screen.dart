@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:promodoroapp/config/palette.dart';
+import 'package:promodoroapp/models/classes.dart';
 import 'package:promodoroapp/screens/screens.dart';
+import 'package:promodoroapp/screens/settings.dart';
 
 class Pomodoro extends StatefulWidget {
   const Pomodoro({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class Pomodoro extends StatefulWidget {
 class _PomodoroState extends State<Pomodoro> {
   static int nb = 1;
   static int studyTimer = durationProvider(nb);
+  static int study = s.duration;
   static int shortBreak = sb.duration;
   static int longBreak = lb.duration;
   static int nbCycles = c.nbc;
@@ -82,6 +85,7 @@ class _PomodoroState extends State<Pomodoro> {
             backgroundColor: Palette.scaffold,
             title: const Text(
               "Pomodoro\nTimer",
+              textAlign: TextAlign.start,
               style: TextStyle(
                 // color: Palette.facebookBlue,
                 color: Colors.black,
@@ -102,10 +106,8 @@ class _PomodoroState extends State<Pomodoro> {
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const SettingsScreen())),
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => SettingsScreen())),
                   icon: const Icon(Icons.settings),
                   iconSize: 40.0,
                   color: Colors.black,
@@ -206,14 +208,14 @@ class _PomodoroState extends State<Pomodoro> {
                   child: Column(
                     children: <Widget>[
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Column(
                             children: const <Widget>[
                               Text(
                                 "Study Time",
                                 style: TextStyle(
-                                  fontSize: 25.0,
+                                  fontSize: 20.0,
                                 ),
                               ),
                               SizedBox(
@@ -222,7 +224,7 @@ class _PomodoroState extends State<Pomodoro> {
                               Text(
                                 "25",
                                 style: TextStyle(
-                                  fontSize: 70.0,
+                                  fontSize: 50.0,
                                 ),
                               ),
                             ],
@@ -235,7 +237,7 @@ class _PomodoroState extends State<Pomodoro> {
                               Text(
                                 "Pause Time",
                                 style: TextStyle(
-                                  fontSize: 25.0,
+                                  fontSize: 20.0,
                                 ),
                               ),
                               SizedBox(
@@ -244,14 +246,14 @@ class _PomodoroState extends State<Pomodoro> {
                               Text(
                                 "5",
                                 style: TextStyle(
-                                  fontSize: 70.0,
+                                  fontSize: 50.0,
                                 ),
                               ),
                             ],
                           ),
                         ],
                       ),
-
+                      SizedBox(height: 10.0),
                       // START BUTTON
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -268,64 +270,12 @@ class _PomodoroState extends State<Pomodoro> {
                               "Start Studying",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22.0,
+                                fontSize: 19.0,
                               ),
                             ),
                           ),
                         ),
                       ),
-
-                      // last start button
-                      // CupertinoButton(
-                      //   padding: const EdgeInsets.symmetric(
-                      //     vertical: 20.0,
-                      //     horizontal: 30.0,
-                      //   ),
-                      //   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      //   color: percent == 0.00 ? Colors.blue : Colors.grey,
-                      //   disabledColor: Colors.grey,
-                      //   pressedOpacity: 0.6,
-                      //   child: const Text(
-                      //     "Start Studying",
-                      //     style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 22.0,
-                      //     ),
-                      //   ),
-                      //   onPressed: _isButtonDisabled ? null : _startTimer,
-                      // ),
-
-                      // NEWWWWWW START BUTTONNNNNNN
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: Container(
-                      //     // padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                      //     width: 200.0,
-                      //     height: 65.0,
-                      //     decoration: BoxDecoration(
-                      //       color: percent == 0.00 ? Colors.blue : Colors.grey,
-                      //       borderRadius: BorderRadius.circular(20.0),
-                      //     ),
-                      //     child: InkWell(
-                      //       onTap: () =>
-                      //           {_isButtonDisabled ? null : _startTimer()},
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         crossAxisAlignment: CrossAxisAlignment.center,
-                      //         children: const <Widget>[
-                      //           Text(
-                      //             "Start Studying",
-                      //             style: TextStyle(
-                      //               color: Colors.white,
-                      //               fontSize: 22.0,
-                      //               fontWeight: FontWeight.w400,
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 ),
@@ -365,10 +315,8 @@ class _PomodoroState extends State<Pomodoro> {
                                 TextStyle(fontSize: 25.0, color: Colors.black),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const SettingsScreen())),
+                            onTap: () => Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => Settings())),
                             child: Text(
                               "Edit",
                               style: TextStyle(
@@ -384,7 +332,7 @@ class _PomodoroState extends State<Pomodoro> {
                         height: 20.0,
                       ),
                       Text(
-                        "Study duration: $pm minutes",
+                        "Study duration: $study minutes",
                         style: const TextStyle(
                             fontSize: 18.0, color: Colors.black54),
                       ),
@@ -425,71 +373,4 @@ class _PomodoroState extends State<Pomodoro> {
       ),
     );
   }
-}
-
-class Study {
-  int duration = 25;
-  int nbs = 0;
-  bool isActive = false;
-  Study({
-    required this.duration,
-    required this.nbs,
-    required this.isActive,
-  });
-}
-
-class ShortBreak {
-  int duration = 5;
-  int nbsb = 0;
-  bool isActive = false;
-  ShortBreak({
-    required this.duration,
-    required this.nbsb,
-    required this.isActive,
-  });
-}
-
-class LongBreak {
-  int duration = 15;
-  int nblb = 0;
-  bool isActive = false;
-  LongBreak({
-    required this.duration,
-    required this.nblb,
-    required this.isActive,
-  });
-}
-
-class Cycle {
-  int nbc = 4;
-  int currentCycle = 0;
-  Cycle({
-    required this.nbc,
-    required this.currentCycle,
-  });
-}
-
-var s = Study(duration: 2, nbs: 0, isActive: false);
-var sb = ShortBreak(duration: 1, nbsb: 0, isActive: false);
-var lb = LongBreak(duration: 3, nblb: 0, isActive: false);
-var c = Cycle(nbc: 3, currentCycle: 0);
-durationProvider(int nb) {
-  int duration = s.duration;
-  if (nb == c.nbc * 2) {
-    lb.nblb++;
-    duration = lb.duration;
-    sb.nbsb++;
-    c.currentCycle++;
-    nb = 0;
-  } else {
-    if (nb % 2 == 0) {
-      duration = sb.duration;
-      sb.nbsb++;
-      c.currentCycle++;
-    } else {
-      duration = s.duration;
-      s.nbs++;
-    }
-  }
-  return duration;
 }
